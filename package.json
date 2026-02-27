@@ -9,7 +9,7 @@
     "ng": "ng",
     "dev": "vite",
     "start": "pnpm run dev",
-    "build": "vite build",
+    "build": "vite build && node scripts/copy-tslib.js",
     "watch": "vite build --watch",
     "test": "vitest",
     "preview": "node dist/analog/server/index.mjs"

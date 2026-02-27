@@ -84,6 +84,10 @@ export default defineConfig(({ mode }) => ({
       nitro: {
         hooks: {
           'close': () => setTimeout(() => process.exit(0), 1000)
+        },
+        // Inline tslib to avoid module resolution issues
+        externals: {
+          inline: ['tslib']
         }
       }
     }),
