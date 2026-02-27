@@ -1,19 +1,24 @@
-FROM node:22-alpine AS builder
-RUN npm install -g pnpm
+# =========================================
+# Stage 1: Build the Analog.js Application
+# =========================================
+ARG NODE_VERSION=24.12.0-alpine
+FROM node:${NODE_VERSION} AS builder
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
-COPY . .
-ENV NODE_ENV=production
-ENV CI=true
-RUN pnpm run build
+COPY --link package.json package-lock.json* ./
+RUN npm ci
+COPY --link . .
+RUN npm run build
 
-FROM node:22-alpine
-RUN npm install -g pnpm
+# =========================================
+# Stage 2: Run the Analog.js Server
+# =========================================
+FROM node:${NODE_VERSION} AS runner
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod
-COPY --from=builder /app/dist ./dist
-EXPOSE 3000
 ENV NODE_ENV=production
-CMD ["node", "dist/analog/server/index.mjs"]
+ENV PORT=3000
+ENV HOST=0.0.0.0
+COPY --link --from=builder /app/dist/analog ./
+USER node 
+EXPOSE 3000
+
+ENTRYPOINT ["node", "server/index.mjs"]
