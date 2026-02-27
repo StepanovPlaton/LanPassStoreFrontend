@@ -1,0 +1,13 @@
+<section class="products-grid">
+    @if (products()?.length) {
+        <div class="products-grid__inner">
+            @for (product of products(); track product.id) {
+                <app-product-card [product]="product" />
+            }
+        </div>
+    } @else {
+        <p class="products-grid__empty">
+            Товары скоро появятся.
+        </p>
+    }
+</section>

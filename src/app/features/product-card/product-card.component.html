@@ -1,0 +1,59 @@
+<hlm-card class="product-card" (mouseenter)="startAutoplay()" (mouseleave)="stopAutoplay()">
+    @if (images()?.length) {
+        <div class="product-card__media">
+            <hlm-carousel>
+                <div hlmCarouselContent>
+                    @for (image of images(); track image) {
+                        <div hlmCarouselItem>
+                            <img class="product-card__image" [src]="image" [alt]="title()" loading="lazy" />
+                        </div>
+                    }
+                </div>
+
+                <button hlmCarouselPrevious></button>
+                <button hlmCarouselNext></button>
+
+                <hlm-carousel-slide-display class="product-card__slide-indicator" />
+            </hlm-carousel>
+        </div>
+    } @else {
+        <div class="product-card__media product-card__media--placeholder">
+            <span class="product-card__placeholder-text">Нет изображения</span>
+        </div>
+    }
+
+    <div hlmCardHeader>
+        <h3 hlmCardTitle class="product-card__title">
+            {{ title() }}
+        </h3>
+        <p hlmCardDescription class="product-card__description">
+            {{ description() }}
+        </p>
+    </div>
+
+    <div hlmCardFooter class="product-card__footer">
+        <div class="product-card__price">
+            <span class="product-card__price-value">
+                {{ price() | numApo }} ₸
+            </span>
+        </div>
+
+        @if (countInCart === 0) {
+            <button hlmBtn class="product-card__add-button" (click)="addToCart()">
+                Добавить в корзину
+            </button>
+        } @else {
+            <div class="product-card__qty">
+                <button hlmBtn variant="outline" size="icon-sm" (click)="decrementCount()">
+                    −
+                </button>
+                <span class="product-card__qty-value">
+                    {{ countInCart }}
+                </span>
+                <button hlmBtn variant="outline" size="icon-sm" (click)="incrementCount()">
+                    +
+                </button>
+            </div>
+        }
+    </div>
+</hlm-card>

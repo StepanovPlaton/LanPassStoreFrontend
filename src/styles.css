@@ -1,0 +1,98 @@
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css';
+
+@import "@spartan-ng/brain/hlm-tailwind-preset.css";
+
+:root {
+color-scheme: light;
+
+--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+--radius: 0.625rem;
+--background: oklch(1 0 0);
+--foreground: oklch(0.145 0 0);
+--card: oklch(1 0 0);
+--card-foreground: oklch(0.145 0 0);
+--popover: oklch(1 0 0);
+--popover-foreground: oklch(0.145 0 0);
+
+/* Мягкий фирменный голубой primary из старого сайта */
+--primary: #B1D5E5;
+--primary-foreground: #0f172a;
+
+--secondary: #e6f3f8;
+--secondary-foreground: #0f172a;
+
+--muted: oklch(0.97 0 0);
+--muted-foreground: oklch(0.556 0 0);
+
+--accent: #e6f3f8;
+--accent-foreground: #0f172a;
+
+--destructive: oklch(0.577 0.245 27.325);
+--border: #d0e4ef;
+--input: #d0e4ef;
+--ring: #7fb4c9;
+
+--sidebar: oklch(0.985 0 0);
+--sidebar-foreground: oklch(0.145 0 0);
+--sidebar-primary: #B1D5E5;
+--sidebar-primary-foreground: #0f172a;
+--sidebar-accent: #e6f3f8;
+--sidebar-accent-foreground: #0f172a;
+--sidebar-border: #d0e4ef;
+--sidebar-ring: #7fb4c9;
+}
+
+:root.dark {
+color-scheme: dark;
+
+--background: oklch(0.145 0 0);
+--foreground: oklch(0.985 0 0);
+--card: oklch(0.205 0 0);
+--card-foreground: oklch(0.985 0 0);
+--popover: oklch(0.205 0 0);
+--popover-foreground: oklch(0.985 0 0);
+
+/* Приглушённый голубой primary для тёмной темы */
+--primary: #7fb4c9;
+--primary-foreground: #020617;
+
+--secondary: #10212b;
+--secondary-foreground: #dbeff7;
+
+--muted: oklch(0.269 0 0);
+--muted-foreground: oklch(0.708 0 0);
+
+--accent: #10212b;
+--accent-foreground: #dbeff7;
+
+--destructive: oklch(0.704 0.191 22.216);
+--border: #1f2937;
+--input: #020617;
+--ring: #7fb4c9;
+
+--sidebar: oklch(0.205 0 0);
+--sidebar-foreground: oklch(0.985 0 0);
+--sidebar-primary: #7fb4c9;
+--sidebar-primary-foreground: #020617;
+--sidebar-accent: #10212b;
+--sidebar-accent-foreground: #dbeff7;
+--sidebar-border: #1f2937;
+--sidebar-ring: #60a5fa;
+}
+
+@layer base {
+* {
+@apply border-border outline-ring/50;
+}
+body {
+@apply bg-background text-foreground;
+}
+}
+
+.dark .header-logo {
+	filter: invert(1);
+}

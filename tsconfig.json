@@ -1,0 +1,213 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/app/*"
+      ],
+      "@ui/accordion": [
+        "./src/app/shared/ui/accordion/src/index.ts"
+      ],
+      "@ui/alert": [
+        "./src/app/shared/ui/alert/src/index.ts"
+      ],
+      "@ui/alert-dialog": [
+        "./src/app/shared/ui/alert-dialog/src/index.ts"
+      ],
+      "@ui/aspect-ratio": [
+        "./src/app/shared/ui/aspect-ratio/src/index.ts"
+      ],
+      "@ui/autocomplete": [
+        "./src/app/shared/ui/autocomplete/src/index.ts"
+      ],
+      "@ui/avatar": [
+        "./src/app/shared/ui/avatar/src/index.ts"
+      ],
+      "@ui/badge": [
+        "./src/app/shared/ui/badge/src/index.ts"
+      ],
+      "@ui/breadcrumb": [
+        "./src/app/shared/ui/breadcrumb/src/index.ts"
+      ],
+      "@ui/button": [
+        "./src/app/shared/ui/button/src/index.ts"
+      ],
+      "@ui/button-group": [
+        "./src/app/shared/ui/button-group/src/index.ts"
+      ],
+      "@ui/calendar": [
+        "./src/app/shared/ui/calendar/src/index.ts"
+      ],
+      "@ui/card": [
+        "./src/app/shared/ui/card/src/index.ts"
+      ],
+      "@ui/carousel": [
+        "./src/app/shared/ui/carousel/src/index.ts"
+      ],
+      "@ui/checkbox": [
+        "./src/app/shared/ui/checkbox/src/index.ts"
+      ],
+      "@ui/collapsible": [
+        "./src/app/shared/ui/collapsible/src/index.ts"
+      ],
+      "@ui/combobox": [
+        "./src/app/shared/ui/combobox/src/index.ts"
+      ],
+      "@ui/command": [
+        "./src/app/shared/ui/command/src/index.ts"
+      ],
+      "@ui/context-menu": [
+        "./src/app/shared/ui/context-menu/src/index.ts"
+      ],
+      "@ui/date-picker": [
+        "./src/app/shared/ui/date-picker/src/index.ts"
+      ],
+      "@ui/dialog": [
+        "./src/app/shared/ui/dialog/src/index.ts"
+      ],
+      "@ui/dropdown-menu": [
+        "./src/app/shared/ui/dropdown-menu/src/index.ts"
+      ],
+      "@ui/empty": [
+        "./src/app/shared/ui/empty/src/index.ts"
+      ],
+      "@ui/field": [
+        "./src/app/shared/ui/field/src/index.ts"
+      ],
+      "@ui/form-field": [
+        "./src/app/shared/ui/form-field/src/index.ts"
+      ],
+      "@ui/hover-card": [
+        "./src/app/shared/ui/hover-card/src/index.ts"
+      ],
+      "@ui/icon": [
+        "./src/app/shared/ui/icon/src/index.ts"
+      ],
+      "@ui/input": [
+        "./src/app/shared/ui/input/src/index.ts"
+      ],
+      "@ui/input-group": [
+        "./src/app/shared/ui/input-group/src/index.ts"
+      ],
+      "@ui/input-otp": [
+        "./src/app/shared/ui/input-otp/src/index.ts"
+      ],
+      "@ui/item": [
+        "./src/app/shared/ui/item/src/index.ts"
+      ],
+      "@ui/kbd": [
+        "./src/app/shared/ui/kbd/src/index.ts"
+      ],
+      "@ui/label": [
+        "./src/app/shared/ui/label/src/index.ts"
+      ],
+      "@ui/menubar": [
+        "./src/app/shared/ui/menubar/src/index.ts"
+      ],
+      "@ui/native-select": [
+        "./src/app/shared/ui/native-select/src/index.ts"
+      ],
+      "@ui/navigation-menu": [
+        "./src/app/shared/ui/navigation-menu/src/index.ts"
+      ],
+      "@ui/pagination": [
+        "./src/app/shared/ui/pagination/src/index.ts"
+      ],
+      "@ui/popover": [
+        "./src/app/shared/ui/popover/src/index.ts"
+      ],
+      "@ui/progress": [
+        "./src/app/shared/ui/progress/src/index.ts"
+      ],
+      "@ui/radio-group": [
+        "./src/app/shared/ui/radio-group/src/index.ts"
+      ],
+      "@ui/resizable": [
+        "./src/app/shared/ui/resizable/src/index.ts"
+      ],
+      "@ui/scroll-area": [
+        "./src/app/shared/ui/scroll-area/src/index.ts"
+      ],
+      "@ui/select": [
+        "./src/app/shared/ui/select/src/index.ts"
+      ],
+      "@ui/separator": [
+        "./src/app/shared/ui/separator/src/index.ts"
+      ],
+      "@ui/sheet": [
+        "./src/app/shared/ui/sheet/src/index.ts"
+      ],
+      "@ui/sidebar": [
+        "./src/app/shared/ui/sidebar/src/index.ts"
+      ],
+      "@ui/skeleton": [
+        "./src/app/shared/ui/skeleton/src/index.ts"
+      ],
+      "@ui/slider": [
+        "./src/app/shared/ui/slider/src/index.ts"
+      ],
+      "@ui/sonner": [
+        "./src/app/shared/ui/sonner/src/index.ts"
+      ],
+      "@ui/spinner": [
+        "./src/app/shared/ui/spinner/src/index.ts"
+      ],
+      "@ui/switch": [
+        "./src/app/shared/ui/switch/src/index.ts"
+      ],
+      "@ui/table": [
+        "./src/app/shared/ui/table/src/index.ts"
+      ],
+      "@ui/tabs": [
+        "./src/app/shared/ui/tabs/src/index.ts"
+      ],
+      "@ui/textarea": [
+        "./src/app/shared/ui/textarea/src/index.ts"
+      ],
+      "@ui/toggle": [
+        "./src/app/shared/ui/toggle/src/index.ts"
+      ],
+      "@ui/toggle-group": [
+        "./src/app/shared/ui/toggle-group/src/index.ts"
+      ],
+      "@ui/tooltip": [
+        "./src/app/shared/ui/tooltip/src/index.ts"
+      ],
+      "@ui/typography": [
+        "./src/app/shared/ui/typography/src/index.ts"
+      ],
+      "@ui/utils": [
+        "./src/app/shared/ui/utils/src/index.ts"
+      ]
+    },
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "useDefineForClassFields": false,
+    "skipLibCheck": true
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

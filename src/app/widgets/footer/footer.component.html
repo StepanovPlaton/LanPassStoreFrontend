@@ -1,0 +1,21 @@
+<footer class="border-t border-border bg-secondary/60 mt-8">
+	<div class="mx-auto flex max-w-screen-2xl flex-col gap-4 px-4 py-8 text-sm text-muted-foreground lg:flex-row lg:items-center lg:justify-between lg:px-8">
+		<div class="flex items-center gap-3">
+			<a href="/" class="flex items-center">
+				<img src="/LanPass.png" alt="LanPass" class="h-8 w-auto" />
+			</a>
+			<div class="flex flex-col">
+				<span class="font-semibold text-foreground">{{ storeName }}</span>
+				<span class="text-xs text-muted-foreground">Интернет-магазин товаров для отдыха</span>
+			</div>
+		</div>
+
+		<div class="flex flex-col items-start gap-1 lg:items-end">
+			<a [href]="'tel:' + phoneRaw" class="text-sm font-medium text-foreground transition-colors hover:text-primary">
+				{{ phoneDisplay }}
+			</a>
+			<span class="text-xs text-muted-foreground">Звонок по Казахстану</span>
+		</div>
+	</div>
+</footer>
+

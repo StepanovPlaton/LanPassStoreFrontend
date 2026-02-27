@@ -1,0 +1,24 @@
+.products-grid__inner {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+    .products-grid__inner {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1920px) {
+    .products-grid__inner {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.products-grid__empty {
+    text-align: center;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.9rem;
+    padding: 2rem 0;
+}
