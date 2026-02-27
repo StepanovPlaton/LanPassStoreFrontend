@@ -81,6 +81,11 @@ export default defineConfig(({ mode }) => ({
       prerender: {
         routes: [],
       },
+      nitro: {
+        hooks: {
+          'close': () => setTimeout(() => process.exit(0), 1000)
+        }
+      }
     }),
     tailwindcss()
   ],
