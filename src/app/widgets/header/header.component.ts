@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideMenu, lucidePhone } from '@ng-icons/lucide';
 import { HlmButton } from '@ui/button';
@@ -8,6 +8,7 @@ import { HlmSheetImports } from '@ui/sheet';
 import { CartComponent } from '@/features/cart/cart.component';
 import { ThemeToggleComponent } from '@/features/theme-toggle/theme-toggle.component';
 import { APP_PHONE_DISPLAY, APP_PHONE_RAW } from '@/shared/config/phone.config';
+import type { Category } from '@/entities/category';
 
 @Component({
 	selector: 'app-header',
@@ -19,4 +20,7 @@ import { APP_PHONE_DISPLAY, APP_PHONE_RAW } from '@/shared/config/phone.config';
 export class HeaderComponent {
 	protected readonly phoneDisplay = APP_PHONE_DISPLAY;
 	protected readonly phoneRaw = APP_PHONE_RAW;
+
+	/** Категории с бэкенда (например, /api/categories) */
+	categories = input<Category[]>([]);
 }

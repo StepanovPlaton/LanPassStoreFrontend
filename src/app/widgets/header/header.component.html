@@ -8,24 +8,14 @@
 
         <nav hlmNavigationMenu class="hidden md:flex mx-auto">
             <ul hlmNavigationMenuList>
-                <li hlmNavigationMenuItem>
-                    <a hlmNavigationMenuLink href="#"
-                        class="px-4 py-2 text-sm font-semibold rounded-md transition-colors hover:bg-accent hover:text-accent-foreground">
-                        Бассейны
-                    </a>
-                </li>
-                <li hlmNavigationMenuItem>
-                    <a hlmNavigationMenuLink href="#"
-                        class="px-4 py-2 text-sm font-semibold rounded-md transition-colors hover:bg-accent hover:text-accent-foreground">
-                        Кресла
-                    </a>
-                </li>
-                <li hlmNavigationMenuItem>
-                    <a hlmNavigationMenuLink href="#"
-                        class="px-4 py-2 text-sm font-semibold rounded-md transition-colors hover:bg-accent hover:text-accent-foreground">
-                        Проекторы и Экраны
-                    </a>
-                </li>
+                @for (cat of categories(); track cat.ID) {
+                    <li hlmNavigationMenuItem>
+                        <a hlmNavigationMenuLink [href]="'/category/' + cat.ID"
+                            class="px-4 py-2 text-sm font-semibold rounded-md transition-colors hover:bg-accent hover:text-accent-foreground">
+                            {{ cat.name }}
+                        </a>
+                    </li>
+                }
             </ul>
         </nav>
 
@@ -56,18 +46,12 @@
                     </a>
 
                     <nav class="flex flex-col gap-1">
-                        <a href="#"
-                            class="rounded-md px-3 py-2 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
-                            Бассейны
-                        </a>
-                        <a href="#"
-                            class="rounded-md px-3 py-2 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
-                            Кресла
-                        </a>
-                        <a href="#"
-                            class="rounded-md px-3 py-2 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
-                            Проекторы и Экраны
-                        </a>
+                        @for (cat of categories(); track cat.ID) {
+                            <a [href]="'/category/' + cat.ID"
+                                class="rounded-md px-3 py-2 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
+                                {{ cat.name }}
+                            </a>
+                        }
                     </nav>
 
                     <div class="border-t border-border pt-4 space-y-3">

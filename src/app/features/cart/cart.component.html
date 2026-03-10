@@ -1,6 +1,7 @@
 <hlm-dialog>
     <div class="relative inline-flex">
-        <button hlmBtn variant="ghost" size="icon" hlmDialogTrigger class="cursor-pointer">
+        <button hlmBtn variant="ghost" size="icon" hlmDialogTrigger class="cursor-pointer"
+            (click)="orderSuccess.set(false)">
             <ng-icon hlm name="lucideShoppingCart" size="base" />
             <span class="sr-only">Открыть корзину</span>
         </button>
@@ -14,6 +15,18 @@
     </div>
 
     <hlm-dialog-content *hlmDialogPortal="let ctx; class: 'sm:max-w-2xl'">
+        @if (orderSuccess()) {
+        <div class="py-6 text-center">
+            <div class="text-4xl mb-2">😊</div>
+            <h2 hlmDialogTitle class="text-xl font-semibold">Спасибо за заказ!</h2>
+            <p class="mt-2 text-muted-foreground">
+                Мы свяжемся с вами для уточнения деталей доставки.
+            </p>
+            <button hlmBtn hlmDialogClose class="mt-6 cursor-pointer">
+                Закрыть
+            </button>
+        </div>
+        } @else {
         <div hlmDialogHeader>
             <h2 hlmDialogTitle>Корзина</h2>
             <p hlmDialogDescription>Заполните форму, чтобы оформить заказ.</p>
@@ -70,27 +83,42 @@
                     <span class="text-lg font-semibold">{{ total() | numApo }} ₸</span>
                 </div>
 
+                @if (orderError()) {
+                <p class="text-sm text-destructive">{{ orderError() }}</p>
+                }
+
                 <div class="space-y-2 pt-2">
                     <div class="space-y-2">
                         <label class="text-sm font-medium" for="cart-name">Ваше имя</label>
-                        <input id="cart-name" hlmInput type="text" placeholder="Иван" />
+                        <input id="cart-name" hlmInput type="text" placeholder="Иван" [(ngModel)]="customerName" />
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-sm font-medium" for="cart-email">Ваш Email</label>
-                        <input id="cart-email" hlmInput type="email" placeholder="you@example.com" />
+                        <input id="cart-email" hlmInput type="email" placeholder="you@example.com"
+                            [(ngModel)]="customerEmail" />
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-sm font-medium" for="cart-phone">Ваш телефон</label>
-                        <input id="cart-phone" hlmInput type="tel" placeholder="+7 ___ ___ __ __" />
+                        <input id="cart-phone" hlmInput type="tel" placeholder="+7 ___ ___ __ __"
+                            [(ngModel)]="customerPhone" />
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium" for="cart-comment">Комментарий к заказу</label>
+                        <input id="cart-comment" hlmInput type="text" placeholder="Необязательно"
+                            [(ngModel)]="comment" />
                     </div>
                 </div>
             </div>
         </div>
 
         <div hlmDialogFooter>
-            <button hlmBtn class="w-full cursor-pointer">Оформить заказ</button>
+            <button hlmBtn class="w-full cursor-pointer" (click)="submitOrder()" [disabled]="submitting()">
+                {{ submitting() ? 'Отправка…' : 'Оформить заказ' }}
+            </button>
         </div>
+        }
     </hlm-dialog-content>
 </hlm-dialog>

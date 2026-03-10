@@ -1,11 +1,14 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, OnDestroy, computed, input, viewChild } from '@angular/core';
+import { Component, OnDestroy, afterNextRender, computed, ElementRef, input, output, signal, viewChild } from '@angular/core';
 import { HlmButton } from '@ui/button';
 import { HlmCardImports } from '@ui/card';
 import { HlmCarousel, HlmCarouselImports } from '@ui/carousel';
 import type { Product } from '@/entities/product';
 import { CartStore } from '@/entities/cart';
 import { NumberApostrophePipe } from '@/shared/pipes/number-apostrophe.pipe';
+
+/** Запас в пикселях до входа в viewport — картинки начнут грузиться чуть раньше */
+const LAZY_LOAD_ROOT_MARGIN = '200px';
 
 @Component({
     selector: 'app-product-card',
@@ -16,8 +19,8 @@ import { NumberApostrophePipe } from '@/shared/pipes/number-apostrophe.pipe';
 })
 export class ProductCardComponent implements OnDestroy {
     public readonly product = input<Product | null>(null);
-
-    constructor(private readonly _cart: CartStore) { }
+    /** Клик по карточке (область изображения и заголовка) — открыть детали товара. */
+    public readonly productClick = output<number>();
 
     public readonly title = computed(() => this.product()?.title ?? 'Название товара');
     public readonly description = computed(() => this.product()?.description ?? '');
@@ -27,11 +30,40 @@ export class ProductCardComponent implements OnDestroy {
         if (!p?.photo_url) {
             return [];
         }
-        return [p.photo_url, p.photo_url, p.photo_url];
+        return [p.photo_url];
     });
 
+    /** true, когда блок с картинкой вошёл во viewport (с запасом) — тогда подставляем реальный src */
+    public readonly inView = signal(false);
+
+    private readonly _mediaRef = viewChild<ElementRef<HTMLDivElement>>('mediaRef');
     private readonly _carouselRef = viewChild(HlmCarousel);
     private autoplayTimer: number | null = null;
+    private intersectionObserver: IntersectionObserver | null = null;
+
+    constructor(private readonly _cart: CartStore) {
+        afterNextRender(() => this.setupLazyLoad());
+    }
+
+    private setupLazyLoad(): void {
+        const el = this._mediaRef()?.nativeElement;
+        if (!el) {
+            this.inView.set(true);
+            return;
+        }
+        this.intersectionObserver = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                if (entry?.isIntersecting) {
+                    this.inView.set(true);
+                    this.intersectionObserver?.disconnect();
+                    this.intersectionObserver = null;
+                }
+            },
+            { rootMargin: LAZY_LOAD_ROOT_MARGIN, threshold: 0 }
+        );
+        this.intersectionObserver.observe(el);
+    }
 
     public startAutoplay() {
         if (this.autoplayTimer !== null) {
@@ -64,6 +96,8 @@ export class ProductCardComponent implements OnDestroy {
     }
 
     public ngOnDestroy() {
+        this.intersectionObserver?.disconnect();
+        this.intersectionObserver = null;
         this.stopAutoplay();
     }
 
@@ -73,6 +107,13 @@ export class ProductCardComponent implements OnDestroy {
             return;
         }
         this._cart.addProduct(current);
+    }
+
+    public onCardClick(): void {
+        const current = this.product();
+        if (current) {
+            this.productClick.emit(current.id);
+        }
     }
 
     public get countInCart(): number {

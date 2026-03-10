@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
@@ -35,6 +35,10 @@ type SortOption = 'default' | 'price-asc' | 'price-desc' | 'name-asc' | 'name-de
 })
 export class ProductsGridComponent {
     public readonly products = input<Product[]>([]);
+    /** Компактный режим: без фильтров/сортировки, сетка по ширине контейнера (для модалки). */
+    public readonly compact = input<boolean>(false);
+    /** Эмитится при клике по карточке товара (id товара). */
+    public readonly productClick = output<number>();
     public readonly sortOption = signal<SortOption>('newest');
     public readonly minPrice = signal<number | null>(null);
     public readonly maxPrice = signal<number | null>(null);
@@ -73,13 +77,12 @@ export class ProductsGridComponent {
 
     public readonly filteredAndSortedProducts = computed(() => {
         const products = this.products();
+        if (this.compact() || !products?.length) {
+            return products ?? [];
+        }
         const sort = this.sortOption();
         const minPrice = this.minPrice();
         const maxPrice = this.maxPrice();
-
-        if (!products || products.length === 0) {
-            return products;
-        }
 
         // Фильтрация по цене
         let filtered = products.filter((product) => {

@@ -60,6 +60,10 @@ export class CartStore {
 
 	public removeProduct(productId: number) {
 		this._items.update((items) => items.filter((i) => i.product.id !== productId));
-    }
+	}
+
+	public clear(): void {
+		this._items.set([]);
+	}
 }
 

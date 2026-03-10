@@ -1,0 +1,26 @@
+.product-modal__scroll {
+  --scrollbar-thickness: 6px;
+}
+
+.product-modal__image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-modal__text {
+  :deep(h2),
+  :deep(h3) {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+  :deep(p) {
+    margin-bottom: 0.5em;
+  }
+}
+
+.product-modal__related {
+  :deep(.products-grid) {
+    margin-bottom: 0;
+  }
+}

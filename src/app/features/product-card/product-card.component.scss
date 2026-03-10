@@ -30,6 +30,10 @@
     object-fit: cover;
     object-position: center;
     display: block;
+
+    &--placeholder {
+        background: hsl(var(--muted));
+    }
 }
 
 .product-card__placeholder-text {

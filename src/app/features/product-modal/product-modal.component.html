@@ -1,0 +1,84 @@
+@if (product) {
+  <div class="product-modal__scroll max-h-[90vh] overflow-y-auto">
+    <div class="product-modal grid gap-6 pb-4 md:grid-cols-[1fr_1fr]">
+      <div class="product-modal__media space-y-2">
+        @if (product.photo_url) {
+          <hlm-carousel class="w-full">
+            <div hlmCarouselContent>
+              <div hlmCarouselItem>
+                <img
+                  class="product-modal__image aspect-square w-full rounded-lg object-cover"
+                  [src]="product.photo_url"
+                  [alt]="product.title"
+                  loading="eager"
+                />
+              </div>
+            </div>
+          </hlm-carousel>
+        } @else {
+          <div class="product-modal__image product-modal__image--placeholder aspect-square w-full rounded-lg bg-muted"></div>
+        }
+      </div>
+
+      <div class="product-modal__info flex flex-col gap-4">
+        <div>
+          <h2 class="text-xl font-semibold leading-tight md:text-2xl">
+            {{ product.title }}
+          </h2>
+          <p class="mt-1 text-sm text-muted-foreground">
+            Артикул: {{ product.sku }}
+          </p>
+          @if (product.brand) {
+            <p class="text-sm text-muted-foreground">{{ product.brand }}</p>
+          }
+        </div>
+
+        <div class="product-modal__price text-xl font-semibold">
+          {{ product.price | numApo }} ₸
+        </div>
+
+        @if (countInCart() === 0) {
+          <button
+            hlmBtn
+            class="w-full cursor-pointer"
+            (click)="addToCart()"
+          >
+            Оформить заказ
+          </button>
+        } @else {
+          <div class="flex items-center gap-2">
+            <button hlmBtn variant="outline" size="icon" class="cursor-pointer" (click)="decrementCount()">
+              −
+            </button>
+            <span class="min-w-[2rem] text-center font-medium">{{ countInCart() }}</span>
+            <button hlmBtn variant="outline" size="icon" class="cursor-pointer" (click)="addToCart()">
+              +
+            </button>
+          </div>
+        }
+
+        @if (product.description) {
+          <p class="text-sm text-muted-foreground">{{ product.description }}</p>
+        }
+      </div>
+    </div>
+
+    @if (product.text) {
+      <div
+        class="product-modal__text prose prose-sm mt-6 max-w-none dark:prose-invert"
+        [innerHTML]="safeHtml(product.text)"
+      ></div>
+    }
+
+    @if (relatedProducts.length) {
+      <section class="product-modal__related mt-8 border-t pt-6">
+        <h3 class="mb-4 text-lg font-semibold">Смотрите также</h3>
+        <app-products-grid
+          [products]="relatedProducts"
+          [compact]="true"
+          (productClick)="onRelatedProductClick($event)"
+        />
+      </section>
+    }
+  </div>
+}

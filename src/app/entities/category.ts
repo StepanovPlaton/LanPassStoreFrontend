@@ -3,18 +3,16 @@ import * as v from 'valibot';
 import { ApiService } from '@/shared/services/api.service';
 import { softArrayOf } from '@/shared/schemas/soft-array';
 
+/** Schema for API response: { ID, CreatedAt, UpdatedAt, DeletedAt, name } */
 export const categorySchema = v.object({
-    id: v.number(),
+    ID: v.number(),
+    CreatedAt: v.string(), // RFC3339 от бэкенда (микросекунды, +04:00) — без строгой ISO-валидации
+    UpdatedAt: v.string(),
+    DeletedAt: v.nullable(v.unknown()),
     name: v.string(),
-    createdAt: v.pipe(v.string(), v.isoDateTime()),
-    updatedAt: v.pipe(v.string(), v.isoDateTime()),
-    deletedAt: v.object({
-        time: v.pipe(v.string(), v.isoDateTime()),
-        valid: v.boolean(),
-    }),
 });
 
-export type Category = v.InferInput<typeof categorySchema>;
+export type Category = v.InferOutput<typeof categorySchema>;
 
 @Injectable({
     providedIn: 'root',

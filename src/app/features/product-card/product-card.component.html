@@ -1,28 +1,32 @@
-<hlm-card class="product-card" (mouseenter)="startAutoplay()" (mouseleave)="stopAutoplay()">
+<hlm-card class="product-card cursor-pointer" (mouseenter)="startAutoplay()" (mouseleave)="stopAutoplay()">
     @if (images()?.length) {
-        <div class="product-card__media">
-            <hlm-carousel>
-                <div hlmCarouselContent>
-                    @for (image of images(); track image) {
-                        <div hlmCarouselItem>
-                            <img class="product-card__image" [src]="image" [alt]="title()" loading="lazy" />
-                        </div>
-                    }
-                </div>
+        <div class="product-card__media" #mediaRef (click)="onCardClick()">
+            @if (inView()) {
+                <hlm-carousel>
+                    <div hlmCarouselContent>
+                        @for (image of images(); track image) {
+                            <div hlmCarouselItem>
+                                <img class="product-card__image" [src]="image" [alt]="title()" loading="lazy" />
+                            </div>
+                        }
+                    </div>
 
-                <button hlmCarouselPrevious></button>
-                <button hlmCarouselNext></button>
+                    <button hlmCarouselPrevious></button>
+                    <button hlmCarouselNext></button>
 
-                <hlm-carousel-slide-display class="product-card__slide-indicator" />
-            </hlm-carousel>
+                    <hlm-carousel-slide-display class="product-card__slide-indicator" />
+                </hlm-carousel>
+            } @else {
+                <div class="product-card__image product-card__image--placeholder" aria-hidden="true"></div>
+            }
         </div>
     } @else {
-        <div class="product-card__media product-card__media--placeholder">
+        <div class="product-card__media product-card__media--placeholder" (click)="onCardClick()">
             <span class="product-card__placeholder-text">Нет изображения</span>
         </div>
     }
 
-    <div hlmCardHeader>
+    <div hlmCardHeader (click)="onCardClick()">
         <h3 hlmCardTitle class="product-card__title">
             {{ title() }}
         </h3>
@@ -31,7 +35,7 @@
         </p>
     </div>
 
-    <div hlmCardFooter class="product-card__footer">
+    <div hlmCardFooter class="product-card__footer" (click)="$event.stopPropagation()">
         <div class="product-card__price">
             <span class="product-card__price-value">
                 {{ price() | numApo }} ₸
