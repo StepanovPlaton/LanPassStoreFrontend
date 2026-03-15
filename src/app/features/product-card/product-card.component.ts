@@ -46,11 +46,17 @@ export class ProductCardComponent implements OnDestroy {
     }
 
     private setupLazyLoad(): void {
+        if (typeof IntersectionObserver === 'undefined') {
+            this.inView.set(true);
+            return;
+        }
+
         const el = this._mediaRef()?.nativeElement;
         if (!el) {
             this.inView.set(true);
             return;
         }
+
         this.intersectionObserver = new IntersectionObserver(
             (entries) => {
                 const entry = entries[0];
