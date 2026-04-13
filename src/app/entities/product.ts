@@ -44,7 +44,7 @@ export const productSchema = v.pipe(
     is_active: raw.is_active,
     is_manual: raw.is_manual,
     category_id: raw.category_id,
-  }))
+  })),
 );
 
 export type Product = v.InferOutput<typeof productSchema>;
@@ -61,7 +61,7 @@ export class ProductService extends ApiService<Product[], Product> {
   getByCategoryId(categoryId: number | string): Observable<Product[]> {
     return this.httpService.get<Product[]>(
       `products?category_id=${categoryId}`,
-      softArrayOf(productSchema)
+      softArrayOf(productSchema),
     );
   }
 }

@@ -21,14 +21,14 @@ export * from './lib/hlm-select-trigger';
 export * from './lib/hlm-select-value';
 
 export const HlmSelectImports = [
-	HlmSelect,
-	HlmSelectContent,
-	HlmSelectGroup,
-	HlmSelectLabel,
-	HlmSelectOption,
-	HlmSelectScrollDown,
-	HlmSelectScrollUp,
-	HlmSelectSeparator,
-	HlmSelectTrigger,
-	HlmSelectValue,
+  HlmSelect,
+  HlmSelectContent,
+  HlmSelectGroup,
+  HlmSelectLabel,
+  HlmSelectOption,
+  HlmSelectScrollDown,
+  HlmSelectScrollUp,
+  HlmSelectSeparator,
+  HlmSelectTrigger,
+  HlmSelectValue,
 ] as const;

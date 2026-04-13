@@ -16,7 +16,9 @@
             </div>
           </hlm-carousel>
         } @else {
-          <div class="product-modal__image product-modal__image--placeholder aspect-square w-full rounded-lg bg-muted"></div>
+          <div
+            class="product-modal__image product-modal__image--placeholder aspect-square w-full rounded-lg bg-muted"
+          ></div>
         }
       </div>
 
@@ -38,20 +40,30 @@
         </div>
 
         @if (countInCart() === 0) {
-          <button
-            hlmBtn
-            class="w-full cursor-pointer"
-            (click)="addToCart()"
-          >
+          <button hlmBtn class="w-full cursor-pointer" (click)="addToCart()">
             Оформить заказ
           </button>
         } @else {
           <div class="flex items-center gap-2">
-            <button hlmBtn variant="outline" size="icon" class="cursor-pointer" (click)="decrementCount()">
+            <button
+              hlmBtn
+              variant="outline"
+              size="icon"
+              class="cursor-pointer"
+              (click)="decrementCount()"
+            >
               −
             </button>
-            <span class="min-w-[2rem] text-center font-medium">{{ countInCart() }}</span>
-            <button hlmBtn variant="outline" size="icon" class="cursor-pointer" (click)="addToCart()">
+            <span class="min-w-[2rem] text-center font-medium">{{
+              countInCart()
+            }}</span>
+            <button
+              hlmBtn
+              variant="outline"
+              size="icon"
+              class="cursor-pointer"
+              (click)="addToCart()"
+            >
               +
             </button>
           </div>

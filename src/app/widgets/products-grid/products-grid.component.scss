@@ -1,24 +1,24 @@
 // Детали: фиксированная ширина select для корректного отображения
 .products-grid__sort {
-    hlm-select-value {
-        width: 170px !important;
-        min-width: 170px;
-    }
+  hlm-select-value {
+    width: 170px !important;
+    min-width: 170px;
+  }
 }
 
 // Компактный режим (модалка): сетка по ширине контейнера, меньше колонок — карточки не сжатые
 .products-grid--compact {
-    container-type: inline-size;
-    container-name: products-grid;
+  container-type: inline-size;
+  container-name: products-grid;
 
-    .products-grid__list {
-        grid-template-columns: repeat(1, minmax(0, 1fr));
+  .products-grid__list {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
 
-        @container products-grid (min-width: 380px) {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-        @container products-grid (min-width: 720px) {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
+    @container products-grid (min-width: 380px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+    @container products-grid (min-width: 720px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
 }

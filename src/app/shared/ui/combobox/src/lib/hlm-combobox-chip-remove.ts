@@ -4,14 +4,17 @@ import { buttonVariants } from '@ui/button';
 import { classes } from '@ui/utils';
 
 @Directive({
-	selector: 'button[hlmComboboxChipRemove]',
-	hostDirectives: [BrnComboboxChipRemove],
-	host: {
-		'data-slot': 'combobox-chip-remove',
-	},
+  selector: 'button[hlmComboboxChipRemove]',
+  hostDirectives: [BrnComboboxChipRemove],
+  host: {
+    'data-slot': 'combobox-chip-remove',
+  },
 })
 export class HlmComboboxChipRemove {
-	constructor() {
-		classes(() => ['-ml-1 opacity-50 hover:opacity-100', buttonVariants({ variant: 'ghost', size: 'icon-xs' })]);
-	}
+  constructor() {
+    classes(() => [
+      '-ml-1 opacity-50 hover:opacity-100',
+      buttonVariants({ variant: 'ghost', size: 'icon-xs' }),
+    ]);
+  }
 }

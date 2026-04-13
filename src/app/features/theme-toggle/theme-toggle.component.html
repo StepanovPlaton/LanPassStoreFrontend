@@ -1,12 +1,13 @@
 <button
-	hlmBtn
-	variant="ghost"
-	size="icon"
-	(click)="toggleTheme()"
-	[attr.aria-label]="isDark() ? 'Переключить на светлую тему' : 'Переключить на темную тему'"
-	class="theme-toggle"
+  hlmBtn
+  variant="ghost"
+  size="icon"
+  (click)="toggleTheme()"
+  [attr.aria-label]="
+    isDark() ? 'Переключить на светлую тему' : 'Переключить на темную тему'
+  "
+  class="theme-toggle"
 >
-	<ng-icon hlm [name]="isDark() ? 'lucideSun' : 'lucideMoon'" size="base" />
-	<span class="sr-only">{{ isDark() ? 'Светлая тема' : 'Темная тема' }}</span>
+  <ng-icon hlm [name]="isDark() ? 'lucideSun' : 'lucideMoon'" size="base" />
+  <span class="sr-only">{{ isDark() ? "Светлая тема" : "Темная тема" }}</span>
 </button>
-

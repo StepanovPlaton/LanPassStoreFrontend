@@ -12,6 +12,6 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
         error: error.error,
       });
       return throwError(() => error);
-    })
+    }),
   );
 };

@@ -1,73 +1,91 @@
 <header
-    class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-    <div class="mx-auto flex h-16 max-w-screen-2xl items-center px-4 lg:px-8">
+  class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+>
+  <div class="mx-auto flex h-16 max-w-screen-2xl items-center px-4 lg:px-8">
+    <a href="/" class="mr-8 flex shrink-0 items-center">
+      <img src="/LanPass.png" alt="LanPass" class="h-9 w-auto header-logo" />
+    </a>
 
-        <a href="/" class="mr-8 flex shrink-0 items-center">
-            <img src="/LanPass.png" alt="LanPass" class="h-9 w-auto header-logo" />
-        </a>
+    <nav hlmNavigationMenu class="hidden md:flex mx-auto">
+      <ul hlmNavigationMenuList>
+        @for (cat of categories(); track cat.ID) {
+          <li hlmNavigationMenuItem>
+            <a
+              hlmNavigationMenuLink
+              [href]="'/category/' + cat.ID"
+              class="px-4 py-2 text-sm font-semibold rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+            >
+              {{ cat.name }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
 
-        <nav hlmNavigationMenu class="hidden md:flex mx-auto">
-            <ul hlmNavigationMenuList>
-                @for (cat of categories(); track cat.ID) {
-                    <li hlmNavigationMenuItem>
-                        <a hlmNavigationMenuLink [href]="'/category/' + cat.ID"
-                            class="px-4 py-2 text-sm font-semibold rounded-md transition-colors hover:bg-accent hover:text-accent-foreground">
-                            {{ cat.name }}
-                        </a>
-                    </li>
-                }
-            </ul>
-        </nav>
+    <a
+      [href]="'tel:' + phoneRaw"
+      class="hidden md:inline-flex items-center gap-1 text-sm font-medium text-foreground transition-colors hover:text-primary"
+    >
+      <ng-icon hlm name="lucidePhone" size="sm" />
+      <span>{{ phoneDisplay }}</span>
+    </a>
 
-        <a [href]="'tel:' + phoneRaw"
-            class="hidden md:inline-flex items-center gap-1 text-sm font-medium text-foreground transition-colors hover:text-primary">
-            <ng-icon hlm name="lucidePhone" size="sm" />
-            <span>{{ phoneDisplay }}</span>
-        </a>
+    <app-theme-toggle class="hidden md:inline-flex ml-4"></app-theme-toggle>
 
-        <app-theme-toggle class="hidden md:inline-flex ml-4"></app-theme-toggle>
+    <app-cart class="hidden md:inline-flex ml-4"></app-cart>
 
-        <app-cart class="hidden md:inline-flex ml-4"></app-cart>
+    <div class="flex-1 md:hidden"></div>
 
-        <div class="flex-1 md:hidden"></div>
+    <app-cart class="md:hidden mr-2"></app-cart>
 
-        <app-cart class="md:hidden mr-2"></app-cart>
+    <hlm-sheet side="right">
+      <button
+        hlmBtn
+        variant="ghost"
+        size="icon"
+        class="md:hidden"
+        hlmSheetTrigger
+      >
+        <ng-icon hlm name="lucideMenu" size="base" />
+        <span class="sr-only">Открыть меню</span>
+      </button>
 
-        <hlm-sheet side="right">
-            <button hlmBtn variant="ghost" size="icon" class="md:hidden" hlmSheetTrigger>
-                <ng-icon hlm name="lucideMenu" size="base" />
-                <span class="sr-only">Открыть меню</span>
-            </button>
+      <hlm-sheet-content *hlmSheetPortal="let ctx">
+        <div class="flex flex-col gap-6 px-4 pt-8">
+          <a href="/" class="flex items-center">
+            <img
+              src="/LanPass.png"
+              alt="LanPass"
+              class="h-9 w-auto header-logo"
+            />
+          </a>
 
-            <hlm-sheet-content *hlmSheetPortal="let ctx">
-                <div class="flex flex-col gap-6 px-4 pt-8">
-                    <a href="/" class="flex items-center">
-                        <img src="/LanPass.png" alt="LanPass" class="h-9 w-auto header-logo" />
-                    </a>
+          <nav class="flex flex-col gap-1">
+            @for (cat of categories(); track cat.ID) {
+              <a
+                [href]="'/category/' + cat.ID"
+                class="rounded-md px-3 py-2 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+              >
+                {{ cat.name }}
+              </a>
+            }
+          </nav>
 
-                    <nav class="flex flex-col gap-1">
-                        @for (cat of categories(); track cat.ID) {
-                            <a [href]="'/category/' + cat.ID"
-                                class="rounded-md px-3 py-2 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
-                                {{ cat.name }}
-                            </a>
-                        }
-                    </nav>
-
-                    <div class="border-t border-border pt-4 space-y-3">
-                        <a [href]="'tel:' + phoneRaw"
-                            class="flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-primary">
-                            <ng-icon hlm name="lucidePhone" size="sm" />
-                            <span>{{ phoneDisplay }}</span>
-                        </a>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-medium text-foreground">Тема</span>
-                            <app-theme-toggle></app-theme-toggle>
-                        </div>
-                    </div>
-                </div>
-            </hlm-sheet-content>
-        </hlm-sheet>
-
-    </div>
+          <div class="border-t border-border pt-4 space-y-3">
+            <a
+              [href]="'tel:' + phoneRaw"
+              class="flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-primary"
+            >
+              <ng-icon hlm name="lucidePhone" size="sm" />
+              <span>{{ phoneDisplay }}</span>
+            </a>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-foreground">Тема</span>
+              <app-theme-toggle></app-theme-toggle>
+            </div>
+          </div>
+        </div>
+      </hlm-sheet-content>
+    </hlm-sheet>
+  </div>
 </header>

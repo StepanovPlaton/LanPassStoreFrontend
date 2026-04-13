@@ -24,17 +24,19 @@ export default class CategoryPage {
 
   protected readonly categories = toSignal(
     this.categoryService.getAll().pipe(catchError(() => of([]))),
-    { initialValue: [] as Category[] }
+    { initialValue: [] as Category[] },
   );
 
   protected readonly products = toSignal(
     this.route.paramMap.pipe(
       switchMap((params) => {
         const id = params.get('id') ?? '';
-        return this.productService.getByCategoryId(id).pipe(catchError(() => of([])));
-      })
+        return this.productService
+          .getByCategoryId(id)
+          .pipe(catchError(() => of([])));
+      }),
     ),
-    { initialValue: [] as Product[] }
+    { initialValue: [] as Product[] },
   );
 
   protected onProductClick(productId: number): void {
@@ -43,8 +45,13 @@ export default class CategoryPage {
     if (!product) return;
     const relatedProducts = list.filter((p) => p.id !== product.id);
     this.dialogService.open(ProductModalComponent, {
-      context: { product, relatedProducts, onProductClick: (id: number) => this.onProductClick(id) },
-      contentClass: 'sm:max-w-6xl w-full max-w-[95vw] max-h-[90vh] overflow-hidden',
+      context: {
+        product,
+        relatedProducts,
+        onProductClick: (id: number) => this.onProductClick(id),
+      },
+      contentClass:
+        'sm:max-w-6xl w-full max-w-[95vw] max-h-[90vh] overflow-hidden',
     });
   }
 }

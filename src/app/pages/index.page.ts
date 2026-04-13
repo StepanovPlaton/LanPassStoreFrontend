@@ -22,12 +22,12 @@ export default class Home {
 
   protected readonly categories = toSignal(
     this.categoryService.getAll().pipe(catchError(() => of([]))),
-    { initialValue: [] as Category[] }
+    { initialValue: [] as Category[] },
   );
 
   protected readonly products = toSignal(
     this.productService.getAll().pipe(catchError(() => of([]))),
-    { initialValue: [] as Product[] }
+    { initialValue: [] as Product[] },
   );
 
   protected onProductClick(productId: number): void {
@@ -35,11 +35,16 @@ export default class Home {
     const product = list.find((p) => p.id === productId);
     if (!product) return;
     const relatedProducts = list.filter(
-      (p) => p.category_id === product.category_id && p.id !== product.id
+      (p) => p.category_id === product.category_id && p.id !== product.id,
     );
     this.dialogService.open(ProductModalComponent, {
-      context: { product, relatedProducts, onProductClick: (id: number) => this.onProductClick(id) },
-      contentClass: 'sm:max-w-6xl w-full max-w-[95vw] max-h-[90vh] overflow-hidden',
+      context: {
+        product,
+        relatedProducts,
+        onProductClick: (id: number) => this.onProductClick(id),
+      },
+      contentClass:
+        'sm:max-w-6xl w-full max-w-[95vw] max-h-[90vh] overflow-hidden',
     });
   }
 }

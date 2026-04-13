@@ -31,13 +31,16 @@ export interface ProductModalContext {
   styleUrls: ['./product-modal.component.scss'],
 })
 export class ProductModalComponent {
-  private readonly dialogContext = injectBrnDialogContext({ optional: true }) as ProductModalContext | undefined;
+  private readonly dialogContext = injectBrnDialogContext({
+    optional: true,
+  }) as ProductModalContext | undefined;
   private readonly dialogRef = inject(BrnDialogRef);
   private readonly sanitizer = inject(DomSanitizer);
   protected readonly cart = inject(CartStore);
 
   protected readonly product = this.dialogContext?.product ?? null;
-  protected readonly relatedProducts = this.dialogContext?.relatedProducts ?? [];
+  protected readonly relatedProducts =
+    this.dialogContext?.relatedProducts ?? [];
 
   protected readonly countInCart = computed(() => {
     const p = this.product;
