@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import analog from '@analogjs/platform';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
+import { forceBuildExitPlugin } from './vite-plugin-force-build-exit';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -83,6 +84,7 @@ export default defineConfig(({ mode }) => ({
         routes: [],
       },
     }),
-    tailwindcss()
+    tailwindcss(),
+    forceBuildExitPlugin(),
   ],
 }));
