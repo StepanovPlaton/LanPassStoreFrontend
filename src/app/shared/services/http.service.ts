@@ -4,13 +4,15 @@ import { Observable, map } from 'rxjs';
 import * as v from 'valibot';
 
 function getApiBaseUrl(): string {
-  const domain = import.meta.env.VITE_BACKEND_DOMAIN ?? '';
-  const port = import.meta.env.VITE_BACKEND_PORT ?? '';
-  const pattern = (import.meta.env.VITE_API_PATTERN ?? 'api').replace(
-    /^\/|\/$/g,
-    '',
-  );
-  return `http://${domain}:${port}/${pattern}`;
+  const domain = import.meta.env.VITE_BACKEND_DOMAIN;
+  const port = import.meta.env.VITE_BACKEND_PORT;
+  const pattern = (import.meta.env.VITE_API_PATTERN ?? 'api').replace(/^\/|\/$/g, '');
+
+  if (domain && domain !== 'localhost' && domain !== '') {
+     const protocol = window.location.protocol;
+     return `${protocol}//${domain}${port ? ':' + port : ''}/${pattern}`;
+  }
+  return `/${pattern}`;
 }
 
 @Injectable({
