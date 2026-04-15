@@ -1,14 +1,14 @@
 import { Directive } from '@angular/core';
-import { classes } from '@ui/utils';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-  selector: 'ul[hlmPaginationContent]',
-  host: {
-    'data-slot': 'pagination-content',
-  },
+	selector: 'ul[hlmPaginationContent]',
+	host: {
+		'data-slot': 'pagination-content',
+	},
 })
 export class HlmPaginationContent {
-  constructor() {
-    classes(() => 'flex flex-row items-center gap-1');
-  }
+	constructor() {
+		classes(() => 'flex flex-row items-center gap-1');
+	}
 }

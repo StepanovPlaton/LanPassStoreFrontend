@@ -1,16 +1,16 @@
 import { Directive } from '@angular/core';
 import { BrnAlertDialogDescription } from '@spartan-ng/brain/alert-dialog';
-import { classes } from '@ui/utils';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-  selector: '[hlmAlertDialogDescription]',
-  hostDirectives: [BrnAlertDialogDescription],
-  host: {
-    'data-slot': 'alert-dialog-description',
-  },
+	selector: '[hlmAlertDialogDescription]',
+	hostDirectives: [BrnAlertDialogDescription],
+	host: {
+		'data-slot': 'alert-dialog-description',
+	},
 })
 export class HlmAlertDialogDescription {
-  constructor() {
-    classes(() => 'text-muted-foreground text-sm');
-  }
+	constructor() {
+		classes(() => 'text-muted-foreground text-sm');
+	}
 }

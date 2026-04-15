@@ -1,9 +1,12 @@
-import { Component, computed, input, output, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { ProductCardComponent } from '@/features/product-card/product-card.component';
 import type { Product } from '@/entities/product';
+import { CatalogSearchService } from '@/shared/catalog-search/catalog-search.service';
+import {
+  normalizeSearchQuery,
+  productMatchesSearch,
+} from '@/shared/utils/product-search';
 import { HlmButtonImports } from '@ui/button';
 import { HlmEmptyImports } from '@ui/empty';
 import { HlmInputGroupImports } from '@ui/input-group';
@@ -26,8 +29,6 @@ type SortOption =
   standalone: true,
   imports: [
     ProductCardComponent,
-    FormsModule,
-    BrnSelectImports,
     HlmSelectImports,
     BrnPopoverImports,
     HlmPopoverImports,
@@ -41,6 +42,8 @@ type SortOption =
   styleUrls: ['./products-grid.component.scss'],
 })
 export class ProductsGridComponent {
+  protected readonly catalogSearch = inject(CatalogSearchService);
+
   public readonly products = input<Product[]>([]);
   /** Компактный режим: без фильтров/сортировки, сетка по ширине контейнера (для модалки). */
   public readonly compact = input<boolean>(false);
@@ -82,9 +85,16 @@ export class ProductsGridComponent {
     oldest: 'Порядок: сперва старые',
   };
 
+  /** Подпись в триггере селекта (hlm-select / BrnSelectValue). */
+  public readonly sortOptionItemToString = (item: unknown) => {
+    if (item == null) return '';
+    const key = item as SortOption;
+    return this.sortOptionLabels[key] ?? String(item);
+  };
+
   public readonly filteredAndSortedProducts = computed(() => {
     const products = this.products();
-    if (this.compact() || !products?.length) {
+    if (this.compact() || !products.length) {
       return products ?? [];
     }
     const sort = this.sortOption();
@@ -101,6 +111,11 @@ export class ProductsGridComponent {
       }
       return true;
     });
+
+    const q = normalizeSearchQuery(this.catalogSearch.searchQuery());
+    if (q) {
+      filtered = filtered.filter((product) => productMatchesSearch(product, q));
+    }
 
     // Сортировка
     const sorted = [...filtered];
@@ -142,6 +157,16 @@ export class ProductsGridComponent {
     this.maxPrice.set(null);
   }
 
+  public clearCatalogSearch(): void {
+    this.catalogSearch.clearSearch();
+  }
+
+  protected hasFilterEmptyResults(): boolean {
+    if (this.compact()) return false;
+    const list = this.products() ?? [];
+    return list.length > 0 && this.filteredAndSortedProducts().length === 0;
+  }
+
   public onMinPriceChange(value: string): void {
     const numValue = value === '' ? null : Number(value);
     const bounds = this.priceBounds();
@@ -179,5 +204,10 @@ export class ProductsGridComponent {
     } else {
       this.maxPrice.set(max);
     }
+  }
+
+  public onSortOptionChange(value: unknown): void {
+    if (value === null || value === undefined) return;
+    this.sortOption.set(value as SortOption);
   }
 }

@@ -65,34 +65,74 @@
             </div>
           </hlm-popover-content>
         </hlm-popover>
-        <brn-select [(ngModel)]="sortOption" class="products-grid__sort">
+        <hlm-select
+          class="products-grid__sort"
+          [value]="sortOption()"
+          [itemToString]="sortOptionItemToString"
+          (valueChange)="onSortOptionChange($event)"
+        >
           <hlm-select-trigger>
-            <hlm-select-value>{{
-              sortOptionLabels[sortOption()]
-            }}</hlm-select-value>
+            <hlm-select-value />
           </hlm-select-trigger>
-          <hlm-select-content>
-            <hlm-option value="default">Порядок: по умолчанию</hlm-option>
-            <hlm-option value="price-asc">Цена: по возрастанию</hlm-option>
-            <hlm-option value="price-desc">Цена: по убыванию</hlm-option>
-            <hlm-option value="name-asc">Название: А-Я</hlm-option>
-            <hlm-option value="name-desc">Название: Я-А</hlm-option>
-            <hlm-option value="newest">Порядок: сперва новые</hlm-option>
-            <hlm-option value="oldest">Порядок: сперва старые</hlm-option>
+          <hlm-select-content *hlmSelectPortal>
+            <hlm-select-item value="default">Порядок: по умолчанию</hlm-select-item>
+            <hlm-select-item value="price-asc">Цена: по возрастанию</hlm-select-item>
+            <hlm-select-item value="price-desc">Цена: по убыванию</hlm-select-item>
+            <hlm-select-item value="name-asc">Название: А-Я</hlm-select-item>
+            <hlm-select-item value="name-desc">Название: Я-А</hlm-select-item>
+            <hlm-select-item value="newest">Порядок: сперва новые</hlm-select-item>
+            <hlm-select-item value="oldest">Порядок: сперва старые</hlm-select-item>
           </hlm-select-content>
-        </brn-select>
+        </hlm-select>
       </div>
     }
-    <div
-      class="products-grid__list grid grid-cols-1 gap-6 lg:grid-cols-3 2xl:grid-cols-4"
-    >
-      @for (product of filteredAndSortedProducts(); track product.id) {
-        <app-product-card
-          [product]="product"
-          (productClick)="productClick.emit($event)"
-        />
-      }
-    </div>
+    @if (hasFilterEmptyResults()) {
+      <hlm-empty>
+        <hlm-empty-header>
+          <h2 hlmEmptyTitle>Ничего не найдено</h2>
+        </hlm-empty-header>
+        <hlm-empty-description hlmMuted>
+          Попробуйте изменить запрос в шапке сайта или сбросить фильтры.
+        </hlm-empty-description>
+        @if (catalogSearch.searchQuery() || hasActivePriceFilter()) {
+          <div class="mt-4 flex flex-wrap justify-center gap-2">
+            @if (catalogSearch.searchQuery()) {
+              <button
+                hlmBtn
+                variant="outline"
+                size="sm"
+                type="button"
+                (click)="clearCatalogSearch()"
+              >
+                Сбросить поиск
+              </button>
+            }
+            @if (hasActivePriceFilter()) {
+              <button
+                hlmBtn
+                variant="outline"
+                size="sm"
+                type="button"
+                (click)="clearPriceFilter()"
+              >
+                Сбросить фильтр цены
+              </button>
+            }
+          </div>
+        }
+      </hlm-empty>
+    } @else {
+      <div
+        class="products-grid__list grid grid-cols-1 gap-6 lg:grid-cols-3 2xl:grid-cols-4"
+      >
+        @for (product of filteredAndSortedProducts(); track product.id) {
+          <app-product-card
+            [product]="product"
+            (productClick)="productClick.emit($event)"
+          />
+        }
+      </div>
+    }
   } @else {
     <hlm-empty>
       <hlm-empty-header>

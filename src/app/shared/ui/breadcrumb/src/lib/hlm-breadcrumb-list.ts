@@ -1,14 +1,14 @@
 import { Directive } from '@angular/core';
-import { classes } from '@ui/utils';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-  selector: '[hlmBreadcrumbList]',
+	selector: '[hlmBreadcrumbList]',
+	host: {
+		'data-slot': 'breadcrumb-list',
+	},
 })
 export class HlmBreadcrumbList {
-  constructor() {
-    classes(
-      () =>
-        'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5',
-    );
-  }
+	constructor() {
+		classes(() => 'text-muted-foreground gap-1.5 text-sm sm:gap-2.5 flex flex-wrap items-center wrap-break-word');
+	}
 }

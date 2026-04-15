@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => ({
     target: ['es2020'],
   },
   resolve: {
+    tsconfigPaths: true,
     mainFields: ['module'],
     alias: {
       '@': path.resolve(__dirname, './src/app'),
@@ -81,15 +82,6 @@ export default defineConfig(({ mode }) => ({
       prerender: {
         routes: [],
       },
-      nitro: {
-        hooks: {
-          'close': () => setTimeout(() => process.exit(0), 1000)
-        },
-        // Inline tslib to avoid module resolution issues
-        externals: {
-          inline: ['tslib']
-        }
-      }
     }),
     tailwindcss()
   ],

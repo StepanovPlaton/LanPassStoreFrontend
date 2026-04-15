@@ -1,61 +1,12 @@
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
-
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
-pnpm-debug.log
-
-# IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# Visual Studio Code
-.vscode/
-.history/
-
-# Miscellaneous
-/.angular/cache
-/.nx/cache
-/.nx/workspace-data
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-
-# System files
-.DS_Store
-Thumbs.db
-
-# Environment files
-.env*
-!.env.example
-
-# Git
 .git
-.gitignore
-.gitattributes
-
-# Docker
-Dockerfile
-.dockerignore
-docker-compose.yml
-
-# Documentation
-README.md
-*.md
-
-# CI/CD
-.github/
-.gitlab-ci.yml
+.github
+.cursor
+agent-transcripts
+dist
+node_modules
+coverage
+.vite
+npm-debug.log*
+pnpm-debug.log*
+.DS_Store
+*.local

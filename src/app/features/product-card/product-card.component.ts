@@ -59,7 +59,7 @@ export class ProductCardComponent implements OnDestroy {
   private readonly _mediaRef =
     viewChild<ElementRef<HTMLDivElement>>('mediaRef');
   private readonly _carouselRef = viewChild(HlmCarousel);
-  private autoplayTimer: number | null = null;
+  private autoplayTimer: ReturnType<typeof setInterval> | null = null;
   private intersectionObserver: IntersectionObserver | null = null;
 
   constructor(private readonly _cart: CartStore) {
@@ -106,7 +106,7 @@ export class ProductCardComponent implements OnDestroy {
       return;
     }
 
-    this.autoplayTimer = window.setInterval(() => {
+    this.autoplayTimer = setInterval(() => {
       const inst = this._carouselRef();
       if (!inst) {
         return;

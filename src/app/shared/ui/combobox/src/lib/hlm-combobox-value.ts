@@ -1,8 +1,13 @@
 import { Directive } from '@angular/core';
 import { BrnComboboxValue } from '@spartan-ng/brain/combobox';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-  selector: '[hlmComboboxValue]',
-  hostDirectives: [BrnComboboxValue],
+	selector: '[hlmComboboxValue],hlm-combobox-value',
+	hostDirectives: [{ directive: BrnComboboxValue, inputs: ['placeholder'] }],
 })
-export class HlmComboboxValue {}
+export class HlmComboboxValue {
+	constructor() {
+		classes(() => 'data-hidden:hidden');
+	}
+}
