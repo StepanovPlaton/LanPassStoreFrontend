@@ -1,89 +1,105 @@
 <section class="products-grid" [class.products-grid--compact]="compact()">
   @if (products()?.length) {
     @if (!compact()) {
-      <div class="flex items-center justify-end gap-3 mb-6">
-        <hlm-popover>
-          <button
-            hlmPopoverTrigger
-            hlmBtn
-            variant="outline"
-            size="icon"
-            class="relative"
-          >
-            <span>₸</span>
-            @if (hasActivePriceFilter()) {
-              <span
-                class="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-primary"
-              ></span>
-            }
-          </button>
-          <hlm-popover-content
-            class="min-w-72 flex flex-col gap-4 p-4"
-            *hlmPopoverPortal="let ctx"
-          >
-            <div class="flex flex-col gap-4">
-              <hlm-slider
-                [min]="priceBounds().min"
-                [max]="priceBounds().max"
-                [value]="priceRange()"
-                (valueChange)="onPriceRangeChange($event)"
-                step="1"
-                class="w-full py-3"
-              />
-              <div class="flex gap-3">
-                <hlm-input-group class="flex-1">
-                  <input
-                    id="min-price"
-                    hlmInputGroupInput
-                    type="number"
-                    [placeholder]="priceBounds().min.toString()"
-                    [value]="minPrice() ?? ''"
-                    [min]="priceBounds().min"
-                    [max]="priceBounds().max"
-                    (input)="onMinPriceChange($any($event.target).value)"
-                  />
-                  <hlm-input-group-addon align="inline-end">
-                    <span hlmInputGroupText>₸</span>
-                  </hlm-input-group-addon>
-                </hlm-input-group>
-                <hlm-input-group class="flex-1">
-                  <input
-                    id="max-price"
-                    hlmInputGroupInput
-                    type="number"
-                    [placeholder]="priceBounds().max.toString()"
-                    [value]="maxPrice() ?? ''"
-                    [min]="priceBounds().min"
-                    [max]="priceBounds().max"
-                    (input)="onMaxPriceChange($any($event.target).value)"
-                  />
-                  <hlm-input-group-addon align="inline-end">
-                    <span hlmInputGroupText>₸</span>
-                  </hlm-input-group-addon>
-                </hlm-input-group>
+      <div class="flex items-center justify-between gap-3 mb-6">
+        <div class="flex items-center">
+          <label class="sr-only" for="catalog-search-input-grid">Поиск товаров</label>
+          <input
+            hlmInput
+            class="w-60"
+            type="search"
+            id="catalog-search-input-grid"
+            autocomplete="off"
+            placeholder="Поиск по товарам"
+            [value]="catalogSearch.searchQuery()"
+            (input)="onSearchInput($event)"
+          />
+        </div>
+        
+        <div class="flex items-center gap-3">
+          <hlm-popover>
+            <button
+              hlmPopoverTrigger
+              hlmBtn
+              variant="outline"
+              size="icon"
+              class="relative"
+            >
+              <span>₸</span>
+              @if (hasActivePriceFilter()) {
+                <span
+                  class="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-primary"
+                ></span>
+              }
+            </button>
+            <hlm-popover-content
+              class="min-w-72 flex flex-col gap-4 p-4"
+              *hlmPopoverPortal="let ctx"
+            >
+              <div class="flex flex-col gap-4">
+                <hlm-slider
+                  [min]="priceBounds().min"
+                  [max]="priceBounds().max"
+                  [value]="priceRange()"
+                  (valueChange)="onPriceRangeChange($event)"
+                  step="1"
+                  class="w-full py-3"
+                />
+                <div class="flex gap-3">
+                  <hlm-input-group class="flex-1">
+                    <input
+                      id="min-price"
+                      hlmInputGroupInput
+                      type="number"
+                      [placeholder]="priceBounds().min.toString()"
+                      [value]="minPrice() ?? ''"
+                      [min]="priceBounds().min"
+                      [max]="priceBounds().max"
+                      (input)="onMinPriceChange($any($event.target).value)"
+                    />
+                    <hlm-input-group-addon align="inline-end">
+                      <span hlmInputGroupText>₸</span>
+                    </hlm-input-group-addon>
+                  </hlm-input-group>
+                  <hlm-input-group class="flex-1">
+                    <input
+                      id="max-price"
+                      hlmInputGroupInput
+                      type="number"
+                      [placeholder]="priceBounds().max.toString()"
+                      [value]="maxPrice() ?? ''"
+                      [min]="priceBounds().min"
+                      [max]="priceBounds().max"
+                      (input)="onMaxPriceChange($any($event.target).value)"
+                    />
+                    <hlm-input-group-addon align="inline-end">
+                      <span hlmInputGroupText>₸</span>
+                    </hlm-input-group-addon>
+                  </hlm-input-group>
+                </div>
               </div>
-            </div>
-          </hlm-popover-content>
-        </hlm-popover>
-        <hlm-select
-          class="products-grid__sort"
-          [value]="sortOption()"
-          [itemToString]="sortOptionItemToString"
-          (valueChange)="onSortOptionChange($event)"
-        >
-          <hlm-select-trigger>
-            <hlm-select-value />
-          </hlm-select-trigger>
-          <hlm-select-content *hlmSelectPortal>
-            <hlm-select-item value="default">Порядок: по умолчанию</hlm-select-item>
-            <hlm-select-item value="price-asc">Цена: по возрастанию</hlm-select-item>
-            <hlm-select-item value="price-desc">Цена: по убыванию</hlm-select-item>
-            <hlm-select-item value="name-asc">Название: А-Я</hlm-select-item>
-            <hlm-select-item value="name-desc">Название: Я-А</hlm-select-item>
-            <hlm-select-item value="newest">Порядок: сперва новые</hlm-select-item>
-            <hlm-select-item value="oldest">Порядок: сперва старые</hlm-select-item>
-          </hlm-select-content>
-        </hlm-select>
+            </hlm-popover-content>
+          </hlm-popover>
+          <hlm-select
+            class="products-grid__sort"
+            [value]="sortOption()"
+            [itemToString]="sortOptionItemToString"
+            (valueChange)="onSortOptionChange($event)"
+          >
+            <hlm-select-trigger>
+              <hlm-select-value />
+            </hlm-select-trigger>
+            <hlm-select-content *hlmSelectPortal>
+              <hlm-select-item value="default">Порядок: по умолчанию</hlm-select-item>
+              <hlm-select-item value="price-asc">Цена: по возрастанию</hlm-select-item>
+              <hlm-select-item value="price-desc">Цена: по убыванию</hlm-select-item>
+              <hlm-select-item value="name-asc">Название: А-Я</hlm-select-item>
+              <hlm-select-item value="name-desc">Название: Я-А</hlm-select-item>
+              <hlm-select-item value="newest">Порядок: сперва новые</hlm-select-item>
+              <hlm-select-item value="oldest">Порядок: сперва старые</hlm-select-item>
+            </hlm-select-content>
+          </hlm-select>
+        </div>
       </div>
     }
     @if (hasFilterEmptyResults()) {

@@ -4,16 +4,30 @@ import { Observable, map } from 'rxjs';
 import * as v from 'valibot';
 
 function getApiBaseUrl(): string {
-  const domain = import.meta.env['VITE_BACKEND_DOMAIN'];
-  const port = import.meta.env['VITE_BACKEND_PORT'];
+  const domain = (import.meta.env['VITE_BACKEND_DOMAIN'] ?? '').trim();
+  const port = (import.meta.env['VITE_BACKEND_PORT'] ?? '').trim();
   const pattern = (import.meta.env['VITE_API_PATTERN'] ?? 'api').replace(/^\/|\/$/g, '');
 
-  if (domain && domain !== 'localhost' && domain !== '') {
-    const protocol = typeof window !== 'undefined' ? window.location.protocol : 'http:';
-    return `${protocol}//${domain}${port ? ':' + port : ''}/${pattern}`;
+  if (!domain) {
+    return `/${pattern}`;
   }
-  return `/${pattern}`;
+
+  const hasProtocol = /^https?:\/\//i.test(domain);
+  const hostname = domain.replace(/^https?:\/\//i, '').replace(/\/+$/, '');
+  const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '0.0.0.0';
+  const protocol = hasProtocol
+    ? ''
+    : isLocalhost
+      ? 'http:'
+      : typeof window !== 'undefined'
+        ? window.location.protocol
+        : 'https:';
+  const base = hasProtocol ? domain.replace(/\/+$/, '') : `${protocol}//${hostname}`;
+  const baseWithPort = port && !/:\d+$/.test(base) ? `${base}:${port}` : base;
+
+  return `${baseWithPort}/${pattern}`;
 }
+
 
 @Injectable({
   providedIn: 'root',

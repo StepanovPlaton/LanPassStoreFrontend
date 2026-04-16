@@ -5,7 +5,7 @@
   transition:
     transform 150ms ease,
     box-shadow 150ms ease;
-
+  padding-top: 0 !important;
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
@@ -18,11 +18,8 @@
   border-radius: 0.75rem 0.75rem 0 0;
   background: hsl(var(--muted));
 
-  &--placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
+  hlm-carousel {
+    display: block;
   }
 }
 

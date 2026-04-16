@@ -22,22 +22,6 @@
       </ul>
     </nav>
 
-    <div class="hidden md:flex shrink-0 items-center ml-4">
-      <label class="sr-only" for="catalog-search-input-desktop"
-        >Поиск товаров</label
-      >
-      <input
-        hlmInput
-        class="w-60 mr-4"
-        type="search"
-        id="catalog-search-input-desktop"
-        autocomplete="off"
-        placeholder="Поиск по товарам"
-        [value]="catalogSearch.searchQuery()"
-        (input)="onSearchInput($event)"
-      />
-    </div>
-
     <a
       [href]="'tel:' + phoneRaw"
       class="hidden md:inline-flex items-center gap-1 text-sm font-medium text-foreground transition-colors hover:text-primary"
@@ -51,22 +35,6 @@
     <app-cart class="hidden md:inline-flex ml-4"></app-cart>
 
     <div class="flex-1 md:hidden"></div>
-
-    <div class="flex md:hidden shrink-0 items-center mr-2">
-      <label class="sr-only" for="catalog-search-input-mobile"
-        >Поиск товаров</label
-      >
-      <input
-        hlmInput
-        class="w-32"
-        type="search"
-        id="catalog-search-input-mobile"
-        autocomplete="off"
-        placeholder="Поиск"
-        [value]="catalogSearch.searchQuery()"
-        (input)="onSearchInput($event)"
-      />
-    </div>
 
     <app-cart class="md:hidden mr-2"></app-cart>
 

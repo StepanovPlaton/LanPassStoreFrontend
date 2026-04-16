@@ -8,6 +8,7 @@ import {
   productMatchesSearch,
 } from '@/shared/utils/product-search';
 import { HlmButtonImports } from '@ui/button';
+import { HlmInputImports } from '@ui/input';
 import { HlmEmptyImports } from '@ui/empty';
 import { HlmInputGroupImports } from '@ui/input-group';
 import { HlmPopoverImports } from '@ui/popover';
@@ -33,6 +34,7 @@ type SortOption =
     BrnPopoverImports,
     HlmPopoverImports,
     HlmButtonImports,
+    HlmInputImports,
     HlmEmptyImports,
     HlmInputGroupImports,
     HlmSliderImports,
@@ -209,5 +211,9 @@ export class ProductsGridComponent {
   public onSortOptionChange(value: unknown): void {
     if (value === null || value === undefined) return;
     this.sortOption.set(value as SortOption);
+  }
+
+  public onSearchInput(event: Event): void {
+    this.catalogSearch.setQuery((event.target as HTMLInputElement).value);
   }
 }

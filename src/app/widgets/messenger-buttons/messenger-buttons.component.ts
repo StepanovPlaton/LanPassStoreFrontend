@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TELEGRAM_URL, WHATSAPP_URL } from '@/shared/config/phone.config';
 
 @Component({
   selector: 'app-messenger-buttons',
@@ -6,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './messenger-buttons.component.html',
 })
 export class MessengerButtonsComponent {
-  protected readonly telegramUrl = import.meta.env['VITE_TELEGRAM_URL'] ?? '';
-  protected readonly whatsappUrl = import.meta.env['VITE_WHATSAPP_URL'] ?? '';
+  protected readonly telegramUrl = TELEGRAM_URL;
+  protected readonly whatsappUrl = WHATSAPP_URL;
 }
